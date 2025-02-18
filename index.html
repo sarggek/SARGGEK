@@ -2,217 +2,172 @@
 <html>
 <head>
     <title>SARGGEK</title>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">  
-   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
         :root {
-    /* Dark Theme Default */
-    --bg-color: #0a0a0a;
-    --text-color: white;
-    --accent-color: #E50914;
-    --nav-bg: #000;
-}
-
-[data-theme="light"] {
-    /* Light Theme */
-    --bg-color: #ffffff;
-    --text-color: #000;
-    --accent-color: #ff0000;
-    --nav-bg: #f5f5f5;
-}
-
-/* Ab existing CSS ko update karo variables se */
-body {
-    background: var(--bg-color);
-    color: var(--text-color);
-}
-
-.nav {
-    background: var(--nav-bg);
-}
-
-.node h2, .nav h1 {
-    color: var(--accent-color);
-}
-
-/* Toggle Button Styling */
-#theme-toggle {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    margin-left: 20px;
-}
-        /* Custom Cursor Effect (Desktop) */
-.cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #E50914;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    transition: transform 0.3s, opacity 0.3s;
-    z-index: 9999;
-}
-.cursor-active { transform: scale(1.5); }
-
-/* Node Hover Effects */
-.node:hover {
-    transform: translateY(-5px);
-    transition: 0.3s;
-}
-
-/* Touch Scroll Optimization */
-.timeline {
-    -webkit-overflow-scrolling: touch; /* Smooth mobile scroll */
-}
-        .nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #0a0a0a;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-}
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-family: Helvetica;
-}
-.nav-links a:hover {
-    color: #E50914;
-}
-        /* Dark Netflix-inspired CSS */
-        body {
-            background: #0a0a0a;
-            color: white;
-            margin: 0;
-            overflow-x: auto; /* Horizontal Scroll */
+            --bg-color: #0a0a0a;
+            --text-color: white;
+            --accent-color: #E50914;
+            --nav-bg: #000;
         }
+
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --text-color: #000;
+            --accent-color: #000000;
+            --nav-bg: #f5f5f5;
+        }
+
+        /* Splash Animation */
+        @keyframes logoSlide {
+            0% { transform: translateY(50vh); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Navigation Animation */
+        @keyframes navLinksSlide {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(0); }
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            overflow-x: auto;
+            font-family: Arial;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            animation: logoSlide 1s ease-out;
+        }
+
+        .nav h1 {
+            color: var(--accent-color);
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .nav-links {
+            animation: navLinksSlide 1s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 25px;
+            transition: 0.3s;
+        }
+
+        #theme-toggle {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 20px;
+            color: var(--accent-color);
+        }
+
         .timeline {
             display: grid;
             grid-auto-flow: column;
             gap: 80px;
-            padding: 100px 50px;
+            padding: 150px 50px;
             width: max-content;
+            margin: 0 auto;
+            -webkit-overflow-scrolling: touch;
         }
+
         .node {
             width: 300px;
-            border-left: 2px solid #E50914; /* Netflix Red */
-            padding-left: 20px;
+            border-left: 2px solid var(--accent-color);
+            padding: 20px;
             position: relative;
+            text-align: center;
+            transition: 0.3s;
         }
+
         .node::before {
             content: "";
             width: 12px;
             height: 12px;
-            background: #E50914;
+            background: var(--accent-color);
             position: absolute;
             left: -7px;
-            top: 0;
+            top: 50%;
+            transform: translateY(-50%);
             border-radius: 50%;
         }
+
         .node h2 {
-            color: #E50914;
-            font-family: 'Helvetica', sans-serif;
+            color: var(--accent-color);
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+
+        .node p {
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .timeline {
+                padding: 100px 20px;
+                gap: 40px;
+            }
+            .node {
+                width: 250px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- NAVIGATION MENU -->
-<div class="nav">
-    <h1 style="color: #E50914; margin: 0;">SARGGEK</h1>
-    <div class="nav-links">
-        <a href="#rap1">Raps</a>
-        <a href="#lyrics">Lyrics</a>
-        <a href="#about">About</a>
-        <button id="theme-toggle">🌓</button> 
+    <div class="nav">
+        <h1>SARGGEK</h1>
+        <div class="nav-links">
+            <a href="#raps">Raps</a>
+            <a href="#lyrics">Lyrics</a>
+            <a href="#about">About</a>
+            <button id="theme-toggle">🌓</button>
+        </div>
     </div>
+
     <div class="timeline">
-        <!-- RAP 1 -->
-        <div class="node"data-aos="fade-left">
+        <!-- RAP NODES -->
+        <div class="node" data-aos="fade-left">
             <h2>Vartamaan</h2>
-            <p>Lyrics yahan likhna hai...</p>
+            <p>Lyrics content centered here...</p>
         </div>
         
-        <!-- RAP 2 -->
-        <div class="node"data-aos="fade-left">
-            <h2>Assam Ka Garv</h2>
-            <p>Lyrics yahan likhna hai...</p>
-        </div>
-        
-        <!-- RAP 3 -->
-        <div class="node"data-aos="fade-left">
-            <h2>Menifest</h2>
-            <p>Lyrics yahan likhna hai...</p>
-        </div>
-        
-        <!-- RAP 4 -->
-        <div class="node"data-aos="fade-left">
-            <h2>Puratatvik</h2>
-            <p>Lyrics yahan likhna hai...</p>
-        </div>
-        
-        <!-- RAP 5 -->
-        <div class="node"data-aos="fade-left">
-            <h2>Assembled</h2>
-            <p>Lyrics yahan likhna hai...</p>
-        </div>
+        <!-- Add other rap nodes similarly -->
     </div>
-    <script>  
-       AOS.init({ duration: 1200 });  
-   </script>  
+
     <script>
-    // Custom Cursor
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor';
-    document.body.appendChild(cursor);
+        AOS.init({ duration: 1200 });
+        
+        // Theme Toggle
+        const toggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) body.setAttribute('data-theme', savedTheme);
 
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.pageX + 'px';
-        cursor.style.top = e.pageY + 'px';
-    });
-
-    // Hover Effects
-    document.querySelectorAll('.node, a').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-active'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-active'));
-    });
-
-    // Touch Scroll Logic
-    let touchStartX = 0;
-    document.querySelector('.timeline').addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-    });
-    document.querySelector('.timeline').addEventListener('touchmove', (e) => {
-        e.preventDefault(); // For smooth horizontal scroll
-    });
-</script>
-    <script>
-    // Theme Toggle Logic
-    const toggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    // Check Local Storage for saved theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) body.setAttribute('data-theme', savedTheme);
-
-    // Toggle Button Click
-    toggle.addEventListener('click', () => {
-        if (body.getAttribute('data-theme') === 'light') {
-            body.setAttribute('data-theme', 'dark');
-            toggle.textContent = '🌓';
-            localStorage.setItem('theme', 'dark');
-        } else {
-            body.setAttribute('data-theme', 'light');
-            toggle.textContent = '🌞';
-            localStorage.setItem('theme', 'light');
-        }
-    });
-</script>
+        toggle.addEventListener('click', () => {
+            body.getAttribute('data-theme') === 'light' ? 
+                (body.setAttribute('data-theme', 'dark'), toggle.textContent = '🌓') : 
+                (body.setAttribute('data-theme', 'light'), toggle.textContent = '🌞');
+            localStorage.setItem('theme', body.getAttribute('data-theme'));
+        });
+    </script>
 </body>
 </html>
