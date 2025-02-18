@@ -3,10 +3,40 @@
 <head>
     <title>SARGGEK</title>
     <style>
-        body { background: black; color: white; font-family: Arial; }
-        .timeline { padding: 20px; }
-        .node { margin: 40px 0; border-left: 2px solid red; padding-left: 20px; }
-        .node h2 { color: red; }
+        /* Dark Netflix-inspired CSS */
+        body {
+            background: #0a0a0a;
+            color: white;
+            margin: 0;
+            overflow-x: auto; /* Horizontal Scroll */
+        }
+        .timeline {
+            display: grid;
+            grid-auto-flow: column;
+            gap: 80px;
+            padding: 100px 50px;
+            width: max-content;
+        }
+        .node {
+            width: 300px;
+            border-left: 2px solid #E50914; /* Netflix Red */
+            padding-left: 20px;
+            position: relative;
+        }
+        .node::before {
+            content: "";
+            width: 12px;
+            height: 12px;
+            background: #E50914;
+            position: absolute;
+            left: -7px;
+            top: 0;
+            border-radius: 50%;
+        }
+        .node h2 {
+            color: #E50914;
+            font-family: 'Helvetica', sans-serif;
+        }
     </style>
 </head>
 <body>
