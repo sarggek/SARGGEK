@@ -5,6 +5,29 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">  
    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  
     <style>
+        /* Custom Cursor Effect (Desktop) */
+.cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #E50914;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 9999;
+}
+.cursor-active { transform: scale(1.5); }
+
+/* Node Hover Effects */
+.node:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+}
+
+/* Touch Scroll Optimization */
+.timeline {
+    -webkit-overflow-scrolling: touch; /* Smooth mobile scroll */
+}
         .nav {
     position: fixed;
     top: 0;
@@ -104,5 +127,31 @@
     <script>  
        AOS.init({ duration: 1200 });  
    </script>  
+    <script>
+    // Custom Cursor
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor';
+    document.body.appendChild(cursor);
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.pageX + 'px';
+        cursor.style.top = e.pageY + 'px';
+    });
+
+    // Hover Effects
+    document.querySelectorAll('.node, a').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-active'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-active'));
+    });
+
+    // Touch Scroll Logic
+    let touchStartX = 0;
+    document.querySelector('.timeline').addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    });
+    document.querySelector('.timeline').addEventListener('touchmove', (e) => {
+        e.preventDefault(); // For smooth horizontal scroll
+    });
+</script>
 </body>
 </html>
