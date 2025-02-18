@@ -5,6 +5,44 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">  
    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  
     <style>
+        :root {
+    /* Dark Theme Default */
+    --bg-color: #0a0a0a;
+    --text-color: white;
+    --accent-color: #E50914;
+    --nav-bg: #000;
+}
+
+[data-theme="light"] {
+    /* Light Theme */
+    --bg-color: #ffffff;
+    --text-color: #000;
+    --accent-color: #ff0000;
+    --nav-bg: #f5f5f5;
+}
+
+/* Ab existing CSS ko update karo variables se */
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.nav {
+    background: var(--nav-bg);
+}
+
+.node h2, .nav h1 {
+    color: var(--accent-color);
+}
+
+/* Toggle Button Styling */
+#theme-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 20px;
+}
         /* Custom Cursor Effect (Desktop) */
 .cursor {
     width: 20px;
@@ -92,6 +130,7 @@
         <a href="#rap1">Raps</a>
         <a href="#lyrics">Lyrics</a>
         <a href="#about">About</a>
+        <button id="theme-toggle">🌓</button> 
     </div>
     <div class="timeline">
         <!-- RAP 1 -->
@@ -151,6 +190,28 @@
     });
     document.querySelector('.timeline').addEventListener('touchmove', (e) => {
         e.preventDefault(); // For smooth horizontal scroll
+    });
+</script>
+    <script>
+    // Theme Toggle Logic
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Check Local Storage for saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) body.setAttribute('data-theme', savedTheme);
+
+    // Toggle Button Click
+    toggle.addEventListener('click', () => {
+        if (body.getAttribute('data-theme') === 'light') {
+            body.setAttribute('data-theme', 'dark');
+            toggle.textContent = '🌓';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.setAttribute('data-theme', 'light');
+            toggle.textContent = '🌞';
+            localStorage.setItem('theme', 'light');
+        }
     });
 </script>
 </body>
